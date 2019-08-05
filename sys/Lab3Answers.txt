@@ -1,0 +1,54 @@
+1.1
+Another approach may be random boosting.
+
+In Random boosting:
+
+1. For threads which are holding locks and in critical section, then the priority  of these these threads are randomly increased
+2. Threads are allowed to run long enough to exit the critical section.
+3. If the thread was not able to exit the critical section (Means:  doesn't get enough time to release the lock), it will get another chance.
+
+
+Also:- Random boosting is a strategy used by the scheduler in Microsoft Windows to avoid deadlock. 
+
+
+
+
+1.2
+
+Initially 3 processes are created with priorities 10,20,30 are created.  
+And process 1 should acquire lock before process p3.
+
+
+Lock Implementation:
+1. P2 would acquire lock.  Meanwhile P1 which is making P3 wait. Hence, P1 priority would be increased(boosted).
+2. P1 priority would be increased (boosted). If p2 has not completed its execution before P1 priority matches the p2 priority, then P1 would start executing and P2 would be stopped.
+3. Since P1 priority is boosted to 30 so P3 will also have to wait until P1 finishes. 
+4. Then P3 would be executed.
+5. If p2 has not completed its execution, then P2 will completes its execution.
+
+
+
+
+
+my output of task1.c: 
+
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+
+
+Semaphore Implementation
+In semaphore implementation, the process which will  acquires lock first would be  executed first.
+
+
+
+2. Inconcistency may be cause:-
+     If low priority process is exectuting and higher priority process may come and stops(pre-empts) the execution of low priority process.
+	Then high priority process will update the global variables.
+	Then low priority process will also update the global variables.
+	This may cause inconsistency.
+	
+	This may happen,  If try_update function is called through do_update()(acquires lock), then inconsistency may be caused.
