@@ -1,5 +1,7 @@
 /* comcntl.c - comcntl */
 
+//working with complex functions
+
 #include <conf.h>
 #include <kernel.h>
 
